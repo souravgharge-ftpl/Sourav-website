@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>✨🪔 Happy Diwali from Sourav 🪔✨</title>
 
-  <!-- 🪔 Open Graph Metadata (for WhatsApp, social sharing) -->
+  <!-- 🪔 Social share (Open Graph) -->
   <meta property="og:title" content="✨🪔 Happy Diwali from Sourav 🪔✨">
   <meta property="og:description" content="Wishing you a bright, joyful, and safe Diwali! 🪔💫">
   <meta property="og:image" content="https://www.sourav.co.in/images/jethalal.jpg">
@@ -40,7 +40,7 @@
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text-color);
-      text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+      text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.8);
       position: relative;
       padding: 10px;
       box-sizing: border-box;
@@ -53,7 +53,7 @@
       max-width: 600px;
       border-radius: 20px;
       object-fit: cover;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
 
@@ -86,22 +86,13 @@
       box-shadow: 0 0 35px var(--button-glow);
     }
 
-    /* Fireworks Animation */
-    .firework {
+    canvas#fireworksCanvas {
       position: absolute;
-      bottom: 0;
-      width: 4px;
-      height: 80px;
-      background: linear-gradient(to top, gold, transparent);
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: shoot 2s infinite ease-out;
-    }
-
-    @keyframes shoot {
-      0% { transform: translateY(0); opacity: 0.7; }
-      70% { opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
 
     @media (max-width: 480px) {
@@ -127,47 +118,86 @@
   <!-- Play button -->
   <button id="playBtn">▶️ Play</button>
 
-  <!-- Fireworks (JS generated) -->
-  <div id="fireworks-container"></div>
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworksCanvas"></canvas>
 
-  <!-- Confetti library -->
+  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
   <script>
     const audio = document.getElementById('voice');
     const button = document.getElementById('playBtn');
-    const fireworksContainer = document.getElementById('fireworks-container');
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
 
-    // 🎇 Create floating fireworks
-    for (let i = 0; i < 10; i++) {
-      const f = document.createElement('div');
-      f.classList.add('firework');
-      f.style.left = Math.random() * 100 + 'vw';
-      f.style.animationDelay = (Math.random() * 2) + 's';
-      f.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-      fireworksContainer.appendChild(f);
+    // Responsive canvas
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
     // 🌗 Auto-theme based on time
     const hour = new Date().getHours();
     if (hour >= 18 || hour < 6) {
-      // Night theme
       document.documentElement.style.setProperty('--main-bg', '#0a0a0a');
       document.documentElement.style.setProperty('--button-color', '#ffa500');
       document.documentElement.style.setProperty('--button-glow', 'rgba(255,165,0,0.6)');
     } else {
-      // Day theme
       document.documentElement.style.setProperty('--main-bg', '#111111');
       document.documentElement.style.setProperty('--button-color', '#FF7308');
       document.documentElement.style.setProperty('--button-glow', 'rgba(255,115,8,0.6)');
     }
 
-    // 🔊 Confetti + Audio + GA tracking
+    // 🎆 Real fireworks blast animation
+    const particles = [];
+    function createFirework(x, y, color) {
+      for (let i = 0; i < 60; i++) {
+        const angle = (Math.PI * 2 * i) / 60;
+        const speed = Math.random() * 4 + 2;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color,
+        });
+      }
+    }
+
+    function animateFireworks() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05; // gravity
+        p.alpha -= 0.01;
+        if (p.alpha <= 0) particles.splice(i, 1);
+        ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+        ctx.fillRect(p.x, p.y, 3, 3);
+      }
+      requestAnimationFrame(animateFireworks);
+    }
+    animateFireworks();
+
+    setInterval(() => {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * (canvas.height / 2);
+      const colors = ["255,165,0", "255,69,0", "255,255,0", "255,105,180", "0,191,255"];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      createFirework(x, y, color);
+    }, 1000);
+
+    // 🎊 Confetti + Play/Pause + GA Events
     button.addEventListener('click', () => {
-      // Confetti effect
-      const duration = 15 * 1000,
+      const duration = 8 * 1000,
         animationEnd = Date.now() + duration,
-        defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
 
       function randomInRange(min, max) {
         return Math.random() * (max - min) + min;
@@ -187,7 +217,6 @@
         }));
       }, 250);
 
-      // Toggle Play / Pause
       if (audio.paused) {
         audio.play();
         button.textContent = '⏸️ Pause';

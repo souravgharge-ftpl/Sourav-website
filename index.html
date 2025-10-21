@@ -5,30 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Diwaliiiiiiiiiiiiiiiii</title>
   <style>
-    /* Full-screen background image */
     body {
       margin: 0;
       height: 100vh;
-      background: url('images/jethalal.jpg') center center / cover no-repeat;
+      background-color: black;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       color: white;
       text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    /* Image styling */
+    img.background {
+      width: 60%;        /* adjust width */
+      height: auto;      /* maintains aspect ratio */
+      max-height: 80vh;  /* limits how tall it gets */
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 30px;
+      margin-top: 30px;
       background-color: rgba(0, 0, 0, 0.5);
       padding: 10px 25px;
       border-radius: 10px;
     }
 
     button {
-      background: rgba(29,185,84,0.9);
+      background: #FF7308;
       color: white;
       border: none;
       border-radius: 50px;
@@ -37,15 +48,17 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      margin-top: 20px;
     }
 
     button:hover {
-      background: #FF7308;
       transform: scale(1.05);
     }
   </style>
 </head>
 <body>
+  <img src="images/jethalal.jpg" alt="Jethalal" class="background">
+
   <h1>✨🪔🏵️ शुभ दीपावली 🏵️🪔✨</h1>
 
   <audio id="voice">

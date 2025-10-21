@@ -1,98 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HRZGCLFVFT"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-  
     gtag('config', 'G-HRZGCLFVFT');
   </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Diwaliiiiiiiiiiiiiiiii</title>
+  <title>✨🪔 Happy Diwali from Sourav 🪔✨</title>
+
+  <!-- 🪔 Open Graph Metadata (for WhatsApp, social sharing) -->
+  <meta property="og:title" content="✨🪔 Happy Diwali from Sourav 🪔✨">
+  <meta property="og:description" content="Wishing you a bright, joyful, and safe Diwali! 🪔💫">
+  <meta property="og:image" content="https://www.sourav.co.in/images/jethalal.jpg">
+  <meta property="og:url" content="https://www.sourav.co.in/">
+  <meta property="og:type" content="website">
+
   <style>
-    /* Base styles */
+    :root {
+      --main-bg: black;
+      --text-color: white;
+      --button-color: #FF7308;
+      --button-glow: rgba(255, 115, 8, 0.6);
+    }
+
     body {
       margin: 0;
       height: 100vh;
-      background-color: black;
+      background-color: var(--main-bg);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      color: white;
+      color: var(--text-color);
       text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
       position: relative;
       padding: 10px;
       box-sizing: border-box;
+      transition: background 1s ease, color 1s ease;
     }
 
-    /* Responsive image */
     img.background {
-      width: 90%;           /* scale down on small screens */
-      height: auto;         /* keep aspect ratio */
-      max-width: 600px;     /* prevent it from getting huge on desktops */
+      width: 90%;
+      height: auto;
+      max-width: 600px;
       border-radius: 20px;
       object-fit: cover;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      z-index: 1;
     }
 
     h1 {
-      font-size: clamp(1.2rem, 4vw, 2rem); /* automatically scales */
+      font-size: clamp(1.2rem, 4vw, 2rem);
       margin-top: 20px;
       background-color: rgba(0, 0, 0, 0.5);
       padding: 10px 20px;
       border-radius: 10px;
       text-align: center;
+      z-index: 2;
     }
 
     button {
-      background: #FF7308;
+      background: var(--button-color);
       color: white;
       border: none;
       border-radius: 50px;
       padding: 12px 35px;
-      font-size: clamp(1rem, 3vw, 1.2rem); /* scales button text */
+      font-size: clamp(1rem, 3vw, 1.2rem);
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      box-shadow: 0 0 25px var(--button-glow);
       margin-top: 20px;
+      z-index: 2;
     }
 
     button:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 35px var(--button-glow);
     }
 
-    /* Extra tweaks for very small phones */
+    /* Fireworks Animation */
+    .firework {
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      height: 80px;
+      background: linear-gradient(to top, gold, transparent);
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: shoot 2s infinite ease-out;
+    }
+
+    @keyframes shoot {
+      0% { transform: translateY(0); opacity: 0.7; }
+      70% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
     @media (max-width: 480px) {
-      img.background {
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      h1 {
-        padding: 8px 15px;
-      }
-
-      button {
-        padding: 10px 25px;
-      }
+      img.background { width: 100%; border-radius: 10px; }
+      h1 { padding: 8px 15px; }
+      button { padding: 10px 25px; }
     }
   </style>
 </head>
 <body>
-  <!-- Your image -->
+  <!-- Background Image -->
   <img src="images/jethalal.jpg" alt="Jethalal" class="background">
 
   <!-- Heading -->
   <h1>✨🪔🏵️ शुभ दीपावली 🏵️🪔✨</h1>
 
-  <!-- Audio (loop enabled here) -->
+  <!-- Audio -->
   <audio id="voice" loop>
     <source src="audio/audio.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -101,15 +127,44 @@
   <!-- Play button -->
   <button id="playBtn">▶️ Play</button>
 
-  <!-- Confetti -->
+  <!-- Fireworks (JS generated) -->
+  <div id="fireworks-container"></div>
+
+  <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
   <script>
     const audio = document.getElementById('voice');
     const button = document.getElementById('playBtn');
-    
+    const fireworksContainer = document.getElementById('fireworks-container');
+
+    // 🎇 Create floating fireworks
+    for (let i = 0; i < 10; i++) {
+      const f = document.createElement('div');
+      f.classList.add('firework');
+      f.style.left = Math.random() * 100 + 'vw';
+      f.style.animationDelay = (Math.random() * 2) + 's';
+      f.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      fireworksContainer.appendChild(f);
+    }
+
+    // 🌗 Auto-theme based on time
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+      // Night theme
+      document.documentElement.style.setProperty('--main-bg', '#0a0a0a');
+      document.documentElement.style.setProperty('--button-color', '#ffa500');
+      document.documentElement.style.setProperty('--button-glow', 'rgba(255,165,0,0.6)');
+    } else {
+      // Day theme
+      document.documentElement.style.setProperty('--main-bg', '#111111');
+      document.documentElement.style.setProperty('--button-color', '#FF7308');
+      document.documentElement.style.setProperty('--button-glow', 'rgba(255,115,8,0.6)');
+    }
+
+    // 🔊 Confetti + Audio + GA tracking
     button.addEventListener('click', () => {
-      // Confetti animation for 15 seconds
+      // Confetti effect
       const duration = 15 * 1000,
         animationEnd = Date.now() + duration,
         defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -118,37 +173,32 @@
         return Math.random() * (max - min) + min;
       }
 
-      const interval = setInterval(function() {
+      const interval = setInterval(() => {
         const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-
+        if (timeLeft <= 0) return clearInterval(interval);
         const particleCount = 50 * (timeLeft / duration);
-
         confetti(Object.assign({}, defaults, {
           particleCount,
           origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
         }));
-
         confetti(Object.assign({}, defaults, {
           particleCount,
           origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
         }));
       }, 250);
 
-      // Play / pause toggle
+      // Toggle Play / Pause
       if (audio.paused) {
         audio.play();
         button.textContent = '⏸️ Pause';
+        gtag('event', 'play_audio', { 'event_category': 'Audio', 'event_label': 'Play Button' });
       } else {
         audio.pause();
         button.textContent = '▶️ Play';
+        gtag('event', 'pause_audio', { 'event_category': 'Audio', 'event_label': 'Pause Button' });
       }
     });
 
-    // When audio ends (won’t happen since loop is on), reset button if needed
     audio.addEventListener('ended', () => {
       button.textContent = '▶️ Play';
     });

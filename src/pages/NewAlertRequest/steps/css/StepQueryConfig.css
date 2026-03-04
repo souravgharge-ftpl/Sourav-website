@@ -1,0 +1,52 @@
+.btn-dark.step-query {
+    background: #252d3d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.form-group.step-query {
+    border-bottom: 1px solid #252d3d;
+    padding-bottom: 16px;
+}
+
+.form-group.step-query input {
+    padding: 12px 16px;
+    background: #0a0c10;
+    border: 1px solid #252d3d;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+}
+
+.form-row.step-query {
+    display: grid;
+    grid-template-columns: 300px 200px 1fr;
+    gap: 10px;
+}
+
+.form-group.step-query input::placeholder {
+    color: #64748b;
+}
+
+.preview.step-query {
+    background: #0a0c10;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #252d3d;
+    color: #fefefe;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.preview.step-query.active {
+    background: #0a0c10;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #252d3d;
+    color: #00d4aa;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
